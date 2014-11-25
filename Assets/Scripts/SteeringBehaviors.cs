@@ -116,6 +116,6 @@ public class SteeringBehaviors : MonoBehaviour {
 			}
 			Debug.Log("-----");
 		}
-		mover.Accelerate(steeringForce, false, false);
+		mover.Accelerate(steeringForce, false, true);
 	}
 }
