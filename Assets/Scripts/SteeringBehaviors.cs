@@ -78,23 +78,27 @@ public class SteeringBehaviors : MonoBehaviour {
 		}
 	}
 
-	public void AvoidObstacles(float checkDistance, float checkRadius)
+	public bool AvoidObstacles(float checkDistance, float checkRadius)
 	{
-		if (checkDistance <= 0 || checkRadius < 0)
+		if (checkDistance <= 0 || checkRadius <= 0)
 		{
-			return;
+			return false;
 		}
 
-		if (checkDistance < checkRadius)
+		if (checkDistance < checkRadius * 2)
 		{
-			checkDistance = checkRadius;
+			checkDistance = checkRadius * 2;
 		}
 
+		bool avoiding = false;
+		// Set origins for center of capsules defining spheres.
 		Vector3 startPoint = transform.position + (transform.forward * checkRadius);
 		Vector3 endPoint = (transform.position + (transform.forward * checkDistance)) - (transform.forward * checkRadius);
-		if (Physics.CheckCapsule(startPoint, endPoint, checkRadius))
+		//Debug.Log(startPoint + " " + endPoint + " " + (endPoint - startPoint));
+
+		if (Physics.CheckCapsule(startPoint, endPoint, 0))
 		{
-			RaycastHit[] potentialHits = Physics.CapsuleCastAll(startPoint, endPoint, checkRadius, transform.forward);
+			RaycastHit[] potentialHits = Physics.CapsuleCastAll(startPoint, endPoint, checkRadius, transform.forward, checkDistance);
 			List<RaycastHit> obstacleHits = new List<RaycastHit>();
 			for (int i = 0; i < potentialHits.Length; i++)
 			{
@@ -103,19 +107,27 @@ public class SteeringBehaviors : MonoBehaviour {
 				if (!(hitSelf || ignoreHit))
 				{
 					obstacleHits.Add(potentialHits[i]);
-					Debug.Log(obstacleHits[i].collider.gameObject.name + " " + potentialHits[i].distance);
+					//Debug.Log(potentialHits[i].collider.gameObject.name + " " + (potentialHits[i].point - transform.position).magnitude);
 				}
 			}
 
 			for (int i = 0; i < obstacleHits.Count; i++)
 			{
 				Vector3 toObstacle = (obstacleHits[i].collider.gameObject.transform.position - transform.position);
-				Vector3 projToObstacle = Helper.ProjectVector(transform.right, toObstacle);
-				steeringForce += projToObstacle.normalized * mover.handling;// *Mathf.Max(1 - (toObstacle.magnitude / checkDistance), 0);
-				//Debug.Log(obstacleHits[i].collider.gameObject.name + " " + steeringForce);
+				//Vector3 projToObstacle = Helper.ProjectVector(transform.right, -toObstacle);
+				Vector3 steeringAdd = transform.right;// *Mathf.Max(1 - (toObstacle.magnitude / checkDistance), 0);
+				if (Vector3.Dot(steeringAdd, toObstacle) > 0)
+				{
+					steeringAdd *= -1;
+				}
+				desiredVelocity += steeringAdd;
+				//Debug.Log(obstacleHits[i].collider.gameObject.name + " steering: " + steeringAdd);
+				avoiding = true;
 			}
-			Debug.Log("-----");
+			//Debug.Log("-----");
 		}
+		steeringForce = desiredVelocity - mover.velocity;
 		mover.Accelerate(steeringForce, false, true);
+		return avoiding;
 	}
 }

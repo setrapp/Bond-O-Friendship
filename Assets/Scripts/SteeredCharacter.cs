@@ -26,32 +26,36 @@ public class SteeredCharacter : MonoBehaviour {
 	void Update()
 	{
 		// Obstacle Avoidance
-		steering.AvoidObstacles(avoidDistance, avoidRadius);
+		bool avoiding = steering.AvoidObstacles(avoidDistance, avoidRadius);
+		Debug.Log(avoiding);
 
 		// Seeking
-		if (steering != null)
+		if (!avoiding)
 		{
-			if (seeking)
+			if (steering != null)
 			{
-				if (targetObject != null)
+				if (seeking)
 				{
-					if (pointPursuit)
+					if (targetObject != null)
 					{
-						steering.Pursue(targetObject, targetPoint, !precisePursuit, arrive);
+						if (pointPursuit)
+						{
+							steering.Pursue(targetObject, targetPoint, !precisePursuit, arrive);
+						}
+						else
+						{
+							steering.Pursue(targetObject, targetDistance, !precisePursuit, arrive);
+						}
 					}
 					else
 					{
-						steering.Pursue(targetObject, targetDistance, !precisePursuit, arrive);
+						steering.Seek(targetPoint, arrive);
 					}
 				}
 				else
 				{
-					steering.Seek(targetPoint, arrive);
+					steering.Flee(targetPoint);
 				}
-			}
-			else
-			{
-				steering.Flee(targetPoint);
 			}
 		}
 
@@ -76,13 +80,14 @@ public class SteeredCharacter : MonoBehaviour {
 
 			// Obstacle Checking.
 			/*TODO need to actually move so that player is at extreme.*/
-			/*Vector3 avoidEnd = transform.position + transform.forward * avoidDistance;
+			Vector3 avoidStart = transform.position + (transform.forward * avoidRadius);
+			Vector3 avoidEnd = (transform.position + (transform.forward * avoidDistance)) - (transform.forward * avoidRadius);
 			Vector3 avoidOut = transform.right * avoidRadius;
 			Gizmos.color = Color.red;
 			Gizmos.DrawWireSphere(transform.position, avoidRadius);
 			Gizmos.DrawWireSphere(avoidEnd, avoidRadius);
 			Gizmos.DrawLine(transform.position + avoidOut, avoidEnd + avoidOut);
-			Gizmos.DrawLine(transform.position - avoidOut, avoidEnd - avoidOut);*/
+			Gizmos.DrawLine(transform.position - avoidOut, avoidEnd - avoidOut);
 		}
 	}
 }

@@ -194,7 +194,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 13db011496c083e44a3d6b9456f1f228, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -13
+      value: -11.75
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 13db011496c083e44a3d6b9456f1f228, type: 2}
       propertyPath: m_LocalPosition.z
@@ -226,6 +226,22 @@ Prefab:
       objectReference: {fileID: 422401203}
     - target: {fileID: 100006, guid: 13db011496c083e44a3d6b9456f1f228, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400006, guid: 13db011496c083e44a3d6b9456f1f228, type: 2}
+      propertyPath: velocity.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400016, guid: 13db011496c083e44a3d6b9456f1f228, type: 2}
+      propertyPath: avoidDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400016, guid: 13db011496c083e44a3d6b9456f1f228, type: 2}
+      propertyPath: avoidRadius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400000, guid: 13db011496c083e44a3d6b9456f1f228, type: 2}
+      propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
