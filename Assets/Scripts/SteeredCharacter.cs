@@ -7,6 +7,8 @@ public class SteeredCharacter : MonoBehaviour {
 	public Vector3 targetPoint;
 	public float targetDistance;
 	public float slowDistance;
+	public float avoidDistance;
+	public float avoidRadius;
 	public bool seeking;
 	public bool arrive;
 	public bool pointPursuit;
@@ -23,6 +25,10 @@ public class SteeredCharacter : MonoBehaviour {
 
 	void Update()
 	{
+		// Obstacle Avoidance
+		steering.AvoidObstacles(avoidDistance, avoidRadius);
+
+		// Seeking
 		if (steering != null)
 		{
 			if (seeking)
@@ -67,6 +73,16 @@ public class SteeredCharacter : MonoBehaviour {
 			// Steering force
 			Gizmos.color = Color.blue;
 			Gizmos.DrawLine(transform.position, transform.position + steering.steeringForce);
+
+			// Obstacle Checking.
+			/*TODO need to actually move so that player is at extreme.*/
+			/*Vector3 avoidEnd = transform.position + transform.forward * avoidDistance;
+			Vector3 avoidOut = transform.right * avoidRadius;
+			Gizmos.color = Color.red;
+			Gizmos.DrawWireSphere(transform.position, avoidRadius);
+			Gizmos.DrawWireSphere(avoidEnd, avoidRadius);
+			Gizmos.DrawLine(transform.position + avoidOut, avoidEnd + avoidOut);
+			Gizmos.DrawLine(transform.position - avoidOut, avoidEnd - avoidOut);*/
 		}
 	}
 }
