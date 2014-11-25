@@ -6,7 +6,9 @@ public class SteeringBehaviors : MonoBehaviour {
 	public SimpleMover mover;
 	public Vector3 desiredVelocity;
 	public Vector3 steeringForce;
+	public Vector3 maxSteeringForce;
 	/*TODO actual movement should not be done here.*/
+	/*TODO steering force should be normalized and weighted.*/
 
 	void Start()
 	{
@@ -95,10 +97,13 @@ public class SteeringBehaviors : MonoBehaviour {
 		Vector3 startPoint = transform.position + (transform.forward * checkRadius);
 		Vector3 endPoint = (transform.position + (transform.forward * checkDistance)) - (transform.forward * checkRadius);
 		//Debug.Log(startPoint + " " + endPoint + " " + (endPoint - startPoint));
+		int actualLayer = gameObject.layer;
+		gameObject.layer = (int)Mathf.Log(Physics.IgnoreRaycastLayer, 2);
 
-		if (Physics.CheckCapsule(startPoint, endPoint, 0))
+		if (Physics.CheckCapsule(startPoint, endPoint, checkRadius))
 		{
-			RaycastHit[] potentialHits = Physics.CapsuleCastAll(startPoint, endPoint, checkRadius, transform.forward, checkDistance);
+			Debug.Log("hit");
+			RaycastHit[] potentialHits = Physics.CapsuleCastAll(startPoint, endPoint, checkRadius, transform.forward, 0);
 			List<RaycastHit> obstacleHits = new List<RaycastHit>();
 			for (int i = 0; i < potentialHits.Length; i++)
 			{
@@ -107,7 +112,7 @@ public class SteeringBehaviors : MonoBehaviour {
 				if (!(hitSelf || ignoreHit))
 				{
 					obstacleHits.Add(potentialHits[i]);
-					//Debug.Log(potentialHits[i].collider.gameObject.name + " " + (potentialHits[i].point - transform.position).magnitude);
+					Debug.Log(potentialHits[i].collider.gameObject.name + " " + (potentialHits[i].point - transform.position).magnitude);
 				}
 			}
 
@@ -115,17 +120,19 @@ public class SteeringBehaviors : MonoBehaviour {
 			{
 				Vector3 toObstacle = (obstacleHits[i].collider.gameObject.transform.position - transform.position);
 				//Vector3 projToObstacle = Helper.ProjectVector(transform.right, -toObstacle);
-				Vector3 steeringAdd = transform.right;// *Mathf.Max(1 - (toObstacle.magnitude / checkDistance), 0);
+				Vector3 steeringAdd = transform.right * mover.handling;// *Mathf.Max(1 - (toObstacle.magnitude / checkDistance), 0);
 				if (Vector3.Dot(steeringAdd, toObstacle) > 0)
 				{
 					steeringAdd *= -1;
 				}
+				//steeringAdd -= toObstacle;
 				desiredVelocity += steeringAdd;
 				//Debug.Log(obstacleHits[i].collider.gameObject.name + " steering: " + steeringAdd);
 				avoiding = true;
 			}
-			//Debug.Log("-----");
+			Debug.Log("-----");
 		}
+		gameObject.layer = actualLayer;
 		steeringForce = desiredVelocity - mover.velocity;
 		mover.Accelerate(steeringForce, false, true);
 		return avoiding;

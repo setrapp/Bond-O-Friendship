@@ -26,8 +26,11 @@ public class SteeredCharacter : MonoBehaviour {
 	void Update()
 	{
 		// Obstacle Avoidance
-		bool avoiding = steering.AvoidObstacles(avoidDistance, avoidRadius);
-		Debug.Log(avoiding);
+		bool avoiding = false;
+		if (steering.mover.velocity.sqrMagnitude > 0)
+		{
+			avoiding = steering.AvoidObstacles(avoidDistance, avoidRadius);
+		}
 
 		// Seeking
 		if (!avoiding)
@@ -79,15 +82,14 @@ public class SteeredCharacter : MonoBehaviour {
 			Gizmos.DrawLine(transform.position, transform.position + steering.steeringForce);
 
 			// Obstacle Checking.
-			/*TODO need to actually move so that player is at extreme.*/
 			Vector3 avoidStart = transform.position + (transform.forward * avoidRadius);
-			Vector3 avoidEnd = (transform.position + (transform.forward * avoidDistance)) - (transform.forward * avoidRadius);
+			Vector3 avoidEnd = (transform.position + (transform.forward * avoidDistance)) -(transform.forward * avoidRadius);
 			Vector3 avoidOut = transform.right * avoidRadius;
 			Gizmos.color = Color.red;
-			Gizmos.DrawWireSphere(transform.position, avoidRadius);
+			Gizmos.DrawWireSphere(avoidStart, avoidRadius);
 			Gizmos.DrawWireSphere(avoidEnd, avoidRadius);
-			Gizmos.DrawLine(transform.position + avoidOut, avoidEnd + avoidOut);
-			Gizmos.DrawLine(transform.position - avoidOut, avoidEnd - avoidOut);
+			Gizmos.DrawLine(avoidStart + avoidOut, avoidEnd + avoidOut);
+			Gizmos.DrawLine(avoidStart - avoidOut, avoidEnd - avoidOut);
 		}
 	}
 }
