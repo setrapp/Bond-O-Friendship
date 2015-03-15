@@ -101,6 +101,7 @@ GameObject:
   - 114: {fileID: 11443356}
   - 114: {fileID: 11400022}
   - 114: {fileID: 11400024}
+  - 114: {fileID: 11462438}
   m_Layer: 13
   m_Name: Player
   m_TagString: Character
@@ -725,6 +726,7 @@ MonoBehaviour:
   fluffThrow: {fileID: 11400002}
   fluffStick: {fileID: 11400010}
   bondAttachable: {fileID: 11400018}
+  gestureStats: {fileID: 11462438}
   mover: {fileID: 11400012}
   floatMove: {fileID: 11400000}
   body: {fileID: 5400000}
@@ -940,6 +942,24 @@ MonoBehaviour:
     sparseDetailDistance: -1
     sparseDetailFactor: -1
     sparseDetailLinksCheck: 1
+--- !u!114 &11462438
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e70874b169ac2b74ebe53a4eefc174e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bondAttachable: {fileID: 11400018}
+  bondAttraction: 0
+  maxAttraction: 20
+  attractionChangeRate: .5
+  bondPullFactor: 1
+  bondPushFactor: .150000006
+  pushAwayDistanceMax: .300000012
 --- !u!114 &11496068
 MonoBehaviour:
   m_ObjectHideFlags: 1

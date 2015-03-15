@@ -48,35 +48,6 @@ public class Bond : MonoBehaviour {
 		currentDetail = SetLevelOfDetail();
 		bool atSparseDetail = currentDetail <= stats.sparseDetailFactor;
 		float frameTime = Time.time;
-		/*if (currentDetail <= stats.sparseDetailFactor)
-		{
-			//TODO not sure any of this is usable
-			if (!disablingLinks)
-			{
-				for (int i = 0; i < links.Count; i++)
-				{
-					links[i].gameObject.SetActive(false);
-				}
-				disablingLinks = true;
-			}
-			if (links.Count >= 4)
-			{
-				for (int i = 2; i < links.Count - 2; i++)
-				{
-					RemoveLink(i, false);
-				}
-				WeightJoints();
-			}
-			//return;
-		}
-		else if (disablingLinks)
-		{
-			for (int i = 0; i < links.Count; i++)
-			{
-				links[i].gameObject.SetActive(true);
-			}
-			disablingLinks = false;
-		}*/
 
 		if (stats.pullApartMaxFactor > 0)
 		{
@@ -177,6 +148,17 @@ public class Bond : MonoBehaviour {
 				Vector3 betweenAttachments = (attachment2.position - attachment1.position).normalized;
 				pullSpring1.transform.position = attachment1.position - (betweenAttachments * pullSpringDist);
 				pullSpring2.transform.position = attachment2.position + (betweenAttachments * pullSpringDist);
+
+				if ((attachment1.position - attachment2.position).sqrMagnitude < pullSpringDist * pullSpringDist)
+				{
+					pullSpring1.spring = stats.attachSpring1;
+					pullSpring2.spring = stats.attachSpring2;
+				}
+				else
+				{
+					pullSpring1.spring = 0;
+					pullSpring2.spring = 0;
+				}
 			}
 
 			// Ensure smooth transition between the two lines at the center.
@@ -559,12 +541,7 @@ public class Bond : MonoBehaviour {
 			}
 
 			// Attach near end links to attachments to allow pulling.
-			if (pullSpring1 != null && pullSpring2 != null)
-			{
-				pullSpring1.spring = stats.attachSpring1;
-				pullSpring2.spring = stats.attachSpring2;
-			}
-			else
+			if (pullSpring1 == null || pullSpring2 == null)
 			{
 				links[1].jointToAttachment.spring = stats.attachSpring1;
 				links[links.Count - 2].jointToAttachment.spring = stats.attachSpring2;

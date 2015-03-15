@@ -73,6 +73,7 @@ NavMeshSettings:
     minRegionArea: 2
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
+    tileSizeHint: 0
   m_NavMesh: {fileID: 0}
 --- !u!1 &35378
 GameObject:
@@ -30046,7 +30047,7 @@ GameObject:
   - 4: {fileID: 1312797165}
   - 114: {fileID: 1312797164}
   m_Layer: 0
-  m_Name: Circle Gesture
+  m_Name: Movement Gestures
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

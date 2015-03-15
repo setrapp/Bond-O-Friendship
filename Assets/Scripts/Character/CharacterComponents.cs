@@ -15,6 +15,7 @@ public class CharacterComponents : MonoBehaviour {
 	public FluffThrow fluffThrow;
 	public FluffStick fluffStick;
 	public BondAttachable bondAttachable;
+	public CharacterGestureStats gestureStats;
 	public SimpleMover mover;
 	public FloatMoving floatMove;
 	public Rigidbody body;
@@ -81,6 +82,10 @@ public class CharacterComponents : MonoBehaviour {
 			if (bondAttachable == null)
 			{
 				bondAttachable = GetComponent<BondAttachable>();
+			}
+			if (gestureStats == null)
+			{
+				gestureStats = GetComponent<CharacterGestureStats>();
 			}
 			if (mover == null)
 			{
