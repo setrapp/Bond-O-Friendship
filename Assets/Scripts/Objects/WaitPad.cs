@@ -5,19 +5,21 @@ public class WaitPad : MonoBehaviour {
 
 	public bool pOonPad = false;
 	public bool pTonPad = false;
-	private Color mycolor;
-	private float red;
-	private float turnTime;
+	protected Color mycolor;
+	protected float red;
+	protected float turnTime;
 	public bool activated = false;
 
 	// Use this for initialization
-	void Start () {
+	virtual protected void Start()
+	{
 		red = 0.1f;
 		turnTime = 0.3f;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	virtual protected void Update()
+	{
 		mycolor = new Color(red,0.3f,0.5f);
 		GetComponent<Renderer>().material.color = mycolor;
 
@@ -41,7 +43,7 @@ public class WaitPad : MonoBehaviour {
 			//print ("activated");
 		}
 	}
-	void OnTriggerEnter(Collider collide)
+	virtual protected void OnTriggerEnter(Collider collide)
 	{
 		if(collide.gameObject.name == "Player 1")
 		{
@@ -54,7 +56,7 @@ public class WaitPad : MonoBehaviour {
 			//print ("2");
 		}
 	}
-	void OnTriggerExit(Collider collide)
+	virtual protected void OnTriggerExit(Collider collide)
 	{
 		if(collide.gameObject.name == "Player 1")
 		{
