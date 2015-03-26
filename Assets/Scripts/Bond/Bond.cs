@@ -334,6 +334,8 @@ public class Bond : MonoBehaviour {
 		if (attachee1 != null)	{ attachee1.bonds.Remove(this); }
 		if (attachee2 != null)	{ attachee2.bonds.Remove(this); }
 
+		Globals.Instance.BondBroken(this);
+
 		BondBreaking();
 		if (attachee1 != null) { attachee1.SendMessage("BondBroken", attachee2, SendMessageOptions.DontRequireReceiver); }
 		if (attachee2 != null) { attachee2.SendMessage("BondBroken", attachee1, SendMessageOptions.DontRequireReceiver); }
@@ -379,6 +381,8 @@ public class Bond : MonoBehaviour {
 
 		attachee1.SendMessage("BondMade", attachee2, SendMessageOptions.DontRequireReceiver);
 		attachee2.SendMessage("BondMade", attachee1, SendMessageOptions.DontRequireReceiver);
+
+		Globals.Instance.BondFormed(this);
 
 		BondForming();
 	}
