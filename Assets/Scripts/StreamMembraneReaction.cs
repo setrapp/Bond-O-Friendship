@@ -12,9 +12,10 @@ public class StreamMembraneReaction : StreamReaction {
 		membraneWall.createOnStart = false;
 	}
 
-	public override void React(float actionRate)
+	public override bool React(float actionRate)
 	{
-		if (reactionProgress < 1)
+		bool reacted = base.React(actionRate);
+		if (reacted)
 		{
 			base.React(actionRate);
 
@@ -26,5 +27,6 @@ public class StreamMembraneReaction : StreamReaction {
 				}
 			}
 		}
+		return reacted;
 	}
 }

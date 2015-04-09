@@ -21,13 +21,14 @@ public class StreamFillReaction : StreamReaction {
 		ApplyTint();
 	}
 
-	public override void React(float actionRate)
+	public override bool React(float actionRate)
 	{
-		if (reactionProgress < 1)
+		bool reacted = base.React(actionRate);
+		if (reacted)
 		{
-			base.React(actionRate);
 			ApplyTint();
 		}
+		return reacted;
 	}
 
 	private void ApplyTint()

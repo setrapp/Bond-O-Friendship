@@ -11,6 +11,7 @@ public class Stream : MonoBehaviour {
 	private bool ending;
 	public float actionRate = 1;
 	public LayerMask ignoreReactionLayers;
+	public Material lineMaterial;
 
 	/*TODO handle streams merging back together*/
 
@@ -30,6 +31,10 @@ public class Stream : MonoBehaviour {
 	{
 		transform.position = targetChannel.transform.position;
 		tracer.CreateLineMaker(true);
+		if (lineMaterial != null && tracer.lineRenderer != null)
+		{
+			tracer.lineRenderer.material = lineMaterial;
+		}
 
 		SeekNextChannel();
 	}
@@ -78,6 +83,7 @@ public class Stream : MonoBehaviour {
 		int layer = (int)Mathf.Pow(2, col.collider.gameObject.layer);
 		if ((layer & ignoreReactionLayers.value) != layer)
 		{
+
 			
 			Rigidbody body = col.rigidbody;
 			if (body != null)
@@ -111,18 +117,18 @@ public class Stream : MonoBehaviour {
 	private void ProvokeReaction(GameObject reactionObject)
 	{
 		StreamReaction reaction = reactionObject.GetComponent<StreamReaction>();
-		if (reaction == null)
-		{
-			StreamReactionDelegate reactionDelegate = reactionObject.GetComponent<StreamReactionDelegate>();
-			if (reactionDelegate != null)
-			{
-				reaction = reactionDelegate.reaction;
-			}
-		}
-
 		if (reaction != null)
 		{
 			reaction.React(actionRate * Time.deltaTime);
+		}
+
+		StreamReactionDelegate reactionDelegate = reactionObject.GetComponent<StreamReactionDelegate>();
+		if (reactionDelegate != null)
+		{
+			for (int i = 0; i < reactionDelegate.reactions.Count; i++)
+			{
+				reactionDelegate.reactions[i].React(actionRate * Time.deltaTime);
+			}
 		}
 	}
 
