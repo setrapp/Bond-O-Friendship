@@ -28,18 +28,18 @@ public class StreamChannelSeries : MonoBehaviour {
 
 				if (maskBeds)
 				{
-					GameObject bedOverlay = (GameObject)Instantiate(channels[i].bed, channels[i].bed.transform.position, channels[i].bed.transform.rotation);
-					bedOverlay.transform.position += new Vector3(0, 0, 1.5f) - new Vector3(0, 0, bedOverlay.transform.position.z);
+					/*GameObject bedOverlay = (GameObject)Instantiate(channels[i].bed, channels[i].bed.transform.position, channels[i].bed.transform.rotation);
+					bedOverlay.transform.position += new Vector3(0, 0, 4) - new Vector3(0, 0, bedOverlay.transform.position.z);
 					bedOverlay.transform.parent = channels[i].bed.transform;
 					Renderer bedOverlayRenderer = bedOverlay.GetComponent<Renderer>();
 					if (bedOverlayRenderer != null)
 					{
 						bedOverlayRenderer.enabled = true;
 						bedOverlayRenderer.material = overlayMaterial;
-					}
+					}*/
 
 					GameObject bedMask = (GameObject)Instantiate(channels[i].bed, channels[i].bed.transform.position, channels[i].bed.transform.rotation);
-					bedMask.transform.position += new Vector3(0, 0, 1.75f) - new Vector3(0, 0, bedMask.transform.position.z);
+					bedMask.transform.position += new Vector3(0, 0, 4) - new Vector3(0, 0, bedMask.transform.position.z);
 					bedMask.transform.parent = channels[i].bed.transform;
 					Renderer bedMaskRenderer = bedMask.GetComponent<Renderer>();
 					if (bedMaskRenderer != null)
