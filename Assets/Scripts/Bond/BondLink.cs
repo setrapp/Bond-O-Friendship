@@ -8,8 +8,8 @@ public class BondLink : MonoBehaviour {
 	public Rigidbody body = null;
 	public BondLink linkNext = null;
 	public BondLink linkPrevious = null;
-	public SpringJoint jointToNeighbor = null;
-	public SpringJoint jointToAttachment = null;
+	public ConfigurableJoint jointToNeighbor = null;
+	public ConfigurableJoint jointToAttachment = null;
 	public int orderLevel = 0;
 	public bool broken = false;
 

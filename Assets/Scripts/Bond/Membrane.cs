@@ -343,7 +343,10 @@ public class Membrane : Bond {
 				if (linkToDestroy.linkPrevious.jointToNeighbor != null && linkToDestroy.linkPrevious.jointToNeighbor.connectedBody == linkToDestroy.body)
 				{
 					linkToDestroy.linkPrevious.jointToNeighbor.connectedBody = null;
-					linkToDestroy.linkPrevious.jointToNeighbor.spring = 0;
+					JointDrive destroyDrive = linkToDestroy.jointToNeighbor.xDrive;
+					destroyDrive.positionSpring = 0;
+					linkToDestroy.jointToNeighbor.xDrive = destroyDrive;
+					linkToDestroy.jointToNeighbor.yDrive = destroyDrive;
 				}
 				linkToDestroy.linkPrevious.linkNext = null;
 			}
@@ -352,7 +355,10 @@ public class Membrane : Bond {
 				if (linkToDestroy.linkNext.jointToNeighbor != null && linkToDestroy.linkNext.jointToNeighbor.connectedBody == linkToDestroy.body)
 				{
 					linkToDestroy.linkNext.jointToNeighbor.connectedBody = null;
-					linkToDestroy.linkNext.jointToNeighbor.spring = 0;
+					JointDrive destroyDrive = linkToDestroy.jointToNeighbor.xDrive;
+					destroyDrive.positionSpring = 0;
+					linkToDestroy.jointToNeighbor.xDrive = destroyDrive;
+					linkToDestroy.jointToNeighbor.yDrive = destroyDrive;
 				}
 				linkToDestroy.linkNext.linkPrevious = null;
 			}

@@ -92,11 +92,17 @@ public class Bond : MonoBehaviour {
 			{
 				if (links[i].jointToNeighbor != null && links[i].jointToNeighbor.connectedBody == null)
 				{
-					links[i].jointToNeighbor.spring = 0;
+					JointDrive neighborDrive = links[i].jointToNeighbor.xDrive;
+					neighborDrive.positionSpring = 0;
+					links[i].jointToNeighbor.xDrive = neighborDrive;
+					links[i].jointToNeighbor.yDrive = neighborDrive;
 				}
 				if (links[i].jointToAttachment != null && links[i].jointToAttachment.connectedBody == null)
 				{
-					links[i].jointToAttachment.spring = 0;
+					JointDrive attachmentDrive = links[i].jointToAttachment.xDrive;
+					attachmentDrive.positionSpring = 0;
+					links[i].jointToAttachment.xDrive = attachmentDrive;
+					links[i].jointToAttachment.yDrive = attachmentDrive;
 				}
 			}
 
@@ -530,12 +536,18 @@ public class Bond : MonoBehaviour {
 
 		if (newLink.jointToNeighbor != null)
 		{
-			newLink.jointToNeighbor.spring = 0;
+			JointDrive neighborDrive = newLink.jointToNeighbor.xDrive;
+			neighborDrive.positionSpring = 0;
+			newLink.jointToNeighbor.xDrive = neighborDrive;
+			newLink.jointToNeighbor.yDrive = neighborDrive;
 		}
 
 		if (newLink.jointToAttachment != null)
 		{
-			newLink.jointToAttachment.spring = 0;
+			JointDrive attachmentDrive = newLink.jointToAttachment.xDrive;
+			attachmentDrive.positionSpring = 0;
+			newLink.jointToAttachment.xDrive = attachmentDrive;
+			newLink.jointToAttachment.yDrive = attachmentDrive;
 		}
 
 		if (weightJoints)
@@ -571,20 +583,32 @@ public class Bond : MonoBehaviour {
 
 		if (previousLink.jointToNeighbor != null)
 		{
-			previousLink.jointToNeighbor.spring = 0;
+			JointDrive neighborDrive = previousLink.jointToNeighbor.xDrive;
+			neighborDrive.positionSpring = 0;
+			previousLink.jointToNeighbor.xDrive = neighborDrive;
+			previousLink.jointToNeighbor.yDrive = neighborDrive;
 		}
 		if (previousLink.jointToAttachment != null)
 		{
-			previousLink.jointToAttachment.spring = 0;
+			JointDrive attachmentDrive = previousLink.jointToAttachment.xDrive;
+			attachmentDrive.positionSpring = 0;
+			previousLink.jointToAttachment.xDrive = attachmentDrive;
+			previousLink.jointToAttachment.yDrive = attachmentDrive;
 		}
 
 		if (nextLink.jointToNeighbor != null)
 		{
-			nextLink.jointToNeighbor.spring = 0;
+			JointDrive neighborDrive = previousLink.jointToNeighbor.xDrive;
+			neighborDrive.positionSpring = 0;
+			nextLink.jointToNeighbor.xDrive = neighborDrive;
+			nextLink.jointToNeighbor.yDrive = neighborDrive;
 		}
 		if (nextLink.jointToAttachment != null)
 		{
-			nextLink.jointToAttachment.spring = 0;
+			JointDrive attachmentDrive = previousLink.jointToAttachment.xDrive;
+			attachmentDrive.positionSpring = 0;
+			nextLink.jointToAttachment.xDrive = attachmentDrive;
+			nextLink.jointToAttachment.yDrive = attachmentDrive;
 		}
 
 		if (weightJoints)
@@ -627,19 +651,25 @@ public class Bond : MonoBehaviour {
 			{
 				if (i < links.Count / 2)
 				{
-					links[i].jointToAttachment.connectedBody = attachment1.attachee.body;
+					//links[i].jointToAttachment.connectedBody = attachment1.attachee.body;
 				}
 				else
 				{
-					links[i].jointToAttachment.connectedBody = attachment2.attachee.body;
+					//links[i].jointToAttachment.connectedBody = attachment2.attachee.body;
 				}
-				links[i].jointToAttachment.spring = 0;
+				JointDrive attachmentDrive = links[i].jointToAttachment.xDrive;
+				attachmentDrive.positionSpring = 0;
+				links[i].jointToAttachment.xDrive = attachmentDrive;
+				links[i].jointToAttachment.yDrive = attachmentDrive;
 
 				if (links[i].jointToNeighbor != null)
 				{
+					JointDrive neighborDrive = links[i].jointToNeighbor.xDrive;
+					neighborDrive.positionSpring = 0;
+					neighborDrive.positionDamper = stats.springDamper;
+
+
 					links[i].jointToNeighbor.connectedBody = null;
-					links[i].jointToNeighbor.spring = 0;
-					links[i].jointToNeighbor.damper = stats.springDamper;
 
 					BondLink jointedLink = null;
 					if (links[i].linkPrevious != null && links[i].linkPrevious.orderLevel > links[i].orderLevel)
@@ -654,8 +684,11 @@ public class Bond : MonoBehaviour {
 					if (jointedLink != null && jointedLink.body != null)
 					{
 						links[i].jointToNeighbor.connectedBody = jointedLink.body;
-						links[i].jointToNeighbor.spring = stats.springForce;
+						neighborDrive.positionSpring = stats.springForce;
 					}
+
+					links[i].jointToNeighbor.xDrive = attachmentDrive;
+					links[i].jointToNeighbor.yDrive = attachmentDrive;
 				}
 			}
 
@@ -667,8 +700,15 @@ public class Bond : MonoBehaviour {
 			}
 			else
 			{
-				links[1].jointToAttachment.spring = stats.attachSpring1;
-				links[links.Count - 2].jointToAttachment.spring = stats.attachSpring2;
+				JointDrive attachmentDrive1 = links[1].jointToAttachment.xDrive;
+				attachmentDrive1.positionSpring = stats.attachSpring1;
+				links[1].jointToAttachment.xDrive = attachmentDrive1;
+				links[1].jointToAttachment.yDrive = attachmentDrive1;
+
+				JointDrive attachmentDrive2 = links[links.Count - 2].jointToAttachment.xDrive;
+				attachmentDrive2.positionSpring = stats.attachSpring2;
+				links[links.Count - 2].jointToAttachment.xDrive = attachmentDrive2;
+				links[links.Count - 2].jointToAttachment.yDrive = attachmentDrive2;
 			}
 		}
 	}
@@ -844,7 +884,10 @@ public class Bond : MonoBehaviour {
 		{
 			if (!links[i].broken)
 			{
-				links[i].jointToNeighbor.spring = stats.springForce * detailFraction;
+				JointDrive neighborDrive = links[i].jointToNeighbor.xDrive;
+				neighborDrive.positionSpring = stats.springForce * detailFraction;
+				links[i].jointToNeighbor.xDrive = neighborDrive;
+				links[i].jointToNeighbor.yDrive = neighborDrive;
 			}
 		}
 
@@ -855,8 +898,15 @@ public class Bond : MonoBehaviour {
 		}
 		else
 		{
-			links[1].jointToAttachment.spring = stats.attachSpring1 * detailFraction;
-			links[links.Count - 2].jointToAttachment.spring = stats.attachSpring2 * detailFraction;
+			JointDrive attachmentDrive1 = links[1].jointToAttachment.xDrive;
+			attachmentDrive1.positionSpring = stats.attachSpring1 * detailFraction;
+			links[1].jointToAttachment.xDrive = attachmentDrive1;
+			links[1].jointToAttachment.yDrive = attachmentDrive1;
+			
+			JointDrive attachmentDrive2 = links[links.Count - 2].jointToAttachment.xDrive;
+			attachmentDrive2.positionSpring = stats.attachSpring2 * detailFraction;
+			links[links.Count - 2].jointToAttachment.xDrive = attachmentDrive2;
+			links[links.Count - 2].jointToAttachment.yDrive = attachmentDrive2;
 		}
 	}
 
