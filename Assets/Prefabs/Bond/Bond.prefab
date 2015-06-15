@@ -674,7 +674,7 @@ ConfigurableJoint:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
-  m_EnablePreprocessing: 1
+  m_EnablePreprocessing: 0
 --- !u!153 &15386446
 ConfigurableJoint:
   m_ObjectHideFlags: 1
@@ -772,7 +772,7 @@ ConfigurableJoint:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
-  m_EnablePreprocessing: 1
+  m_EnablePreprocessing: 0
 --- !u!153 &15387024
 ConfigurableJoint:
   m_ObjectHideFlags: 1
@@ -825,13 +825,13 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 2
-    mode: 0
+    mode: 1
     positionSpring: 0
     positionDamper: 0
     maximumForce: 3.40282347e+38
   m_YDrive:
     serializedVersion: 2
-    mode: 0
+    mode: 1
     positionSpring: 0
     positionDamper: 0
     maximumForce: 3.40282347e+38
@@ -870,7 +870,7 @@ ConfigurableJoint:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
-  m_EnablePreprocessing: 1
+  m_EnablePreprocessing: 0
 --- !u!153 &15396244
 ConfigurableJoint:
   m_ObjectHideFlags: 1
@@ -923,13 +923,13 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 2
-    mode: 0
+    mode: 1
     positionSpring: 0
     positionDamper: 0
     maximumForce: 3.40282347e+38
   m_YDrive:
     serializedVersion: 2
-    mode: 0
+    mode: 1
     positionSpring: 0
     positionDamper: 0
     maximumForce: 3.40282347e+38
@@ -968,7 +968,7 @@ ConfigurableJoint:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
-  m_EnablePreprocessing: 1
+  m_EnablePreprocessing: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -986,7 +986,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_EnablePreprocessing
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -250,8 +250,8 @@ ConfigurableJoint:
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
-  m_XMotion: 0
-  m_YMotion: 0
+  m_XMotion: 2
+  m_YMotion: 2
   m_ZMotion: 0
   m_AngularXMotion: 0
   m_AngularYMotion: 0
@@ -289,13 +289,13 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 2
-    mode: 0
+    mode: 1
     positionSpring: 0
     positionDamper: 0
     maximumForce: 3.40282347e+38
   m_YDrive:
     serializedVersion: 2
-    mode: 0
+    mode: 1
     positionSpring: 0
     positionDamper: 0
     maximumForce: 3.40282347e+38
@@ -334,7 +334,7 @@ ConfigurableJoint:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
-  m_EnablePreprocessing: 1
+  m_EnablePreprocessing: 0
 --- !u!153 &15386716
 ConfigurableJoint:
   m_ObjectHideFlags: 1
@@ -432,7 +432,7 @@ ConfigurableJoint:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
-  m_EnablePreprocessing: 1
+  m_EnablePreprocessing: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -478,7 +478,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_EnablePreprocessing
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: jointToNeighbor
@@ -490,10 +490,30 @@ Prefab:
       objectReference: {fileID: 15386716}
     - target: {fileID: 0}
       propertyPath: m_XMotion
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_YMotion
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_SecondaryAxis.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_SecondaryAxis.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Axis.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Axis.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_ConfiguredInWorldSpace
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -133,7 +133,7 @@ public class Bond : MonoBehaviour {
 						links[i].toPreviousCollider.transform.up = links[i].transform.position - links[i - 1].transform.position;
 						links[i].toNextCollider.transform.up = links[i + 1].transform.position - links[i].transform.position;
 
-						links[i].transform.up = linkDir;
+						//links[i].transform.up = linkDir;
 					}
 				}
 				else
@@ -687,8 +687,8 @@ public class Bond : MonoBehaviour {
 						neighborDrive.positionSpring = stats.springForce;
 					}
 
-					links[i].jointToNeighbor.xDrive = attachmentDrive;
-					links[i].jointToNeighbor.yDrive = attachmentDrive;
+					links[i].jointToNeighbor.xDrive = neighborDrive;
+					links[i].jointToNeighbor.yDrive = neighborDrive;
 				}
 			}
 

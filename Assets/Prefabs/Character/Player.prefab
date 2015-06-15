@@ -1103,8 +1103,8 @@ MonoBehaviour:
   stats:
     attachSpring1: 0
     attachSpring2: 0
-    linkMass: 10
-    linkDrag: 10
+    linkMass: 1
+    linkDrag: 1
     pullApartMaxFactor: 0
     maxDistance: 100
     relativeWarningDistance: .5
@@ -1112,8 +1112,8 @@ MonoBehaviour:
     midWidth: .5
     addLinkDistance: 1
     removeLinkDistance: .400000006
-    springForce: 0
-    springDamper: 1
+    springForce: 100
+    springDamper: .200000003
     relativeRequestDistance: .699999988
     fluffRequestDelay: 0
     fluffPullForce: 1
@@ -2324,23 +2324,27 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: stats.springForce
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: stats.linkMass
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: stats.linkDrag
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: stats.springDamper
-      value: 1
+      value: .200000003
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: stats.maxDistance
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: stats.manualLinks
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
